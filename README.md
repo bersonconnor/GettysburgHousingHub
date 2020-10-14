@@ -14,7 +14,7 @@ Use all commands while within this GitHub project's directory.
 ### Getting the Most Recent Version 
 - To check if your version is up to date use `git fetch`
 - To update your local project with the current version use `git pull`
--**Note**: It is generally good practice to fetch and then if necessary pull prior to pushing changes
+- **Note**: It is generally good practice to fetch and then if necessary pull prior to pushing changes
 ## Directory Structure
 ### [front_end](https://github.com/bersonconnor/GettysburgHousingHub/edit/main/front_end)
 Contains HTML for displaying the user interface and CSS for styling.
