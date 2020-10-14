@@ -9,7 +9,7 @@ The following steps are meant for a bash-compatible console.
 Use all commands while within this GitHub project's directory.
 ### Adding New and Edited Files
 - To stage a file that you created or made changes to use `git add file_name`
-- To commit that file use `git commit -m "Message that concisely describes changes that were made and/or files that were added"`
+- To commit that file use `git commit -m "Message that describes changes that were made and/or files that were added"`
 - To push the committed files to the GitHun use `git push`
 ### Getting the Most Recent Version 
 - To check if your version is up to date use `git fetch`
