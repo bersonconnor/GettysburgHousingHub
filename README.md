@@ -17,7 +17,8 @@ Use all commands while within this GitHub project's directory.
 - **Note**: It is generally good practice to fetch and then if necessary pull prior to pushing changes
 ## Directory Structure
 ### [front_end](https://github.com/bersonconnor/GettysburgHousingHub/edit/main/front_end)
-Contains HTML for displaying the user interface and CSS for styling.
+Contains HTML and PHP for displaying the user interface and CSS for styling.
+- [components](https://github.com/bersonconnor/GettysburgHousingHub/edit/main/front_end/components): Contains static html website components, style sheets, and scripts
 - [images](https://github.com/bersonconnor/GettysburgHousingHub/edit/main/front_end/images): Contains all images that appear on the website
 - [info](https://github.com/bersonconnor/GettysburgHousingHub/edit/main/front_end/info): Contains text files regarding front end implementation
 ### [back_end](https://github.com/bersonconnor/GettysburgHousingHub/edit/main/back_end)
