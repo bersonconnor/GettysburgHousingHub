@@ -10,10 +10,10 @@
 	include_once("components/title.html");
 ?>
 
-<div id="info" class="container-fluid">
+<div id="container_name" class="container-fluid">
   <div class="row">
     <div class="col-sm-12">
-      <h2>INFORMATION</h2><br>
+      <h2>Container Title</h2><br>
       This container is sad because it is empty :(
     </div>
   </div>
