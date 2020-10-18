@@ -27,7 +27,7 @@
 <div id="selection" class="container-fluid bg-grey">
   <div class="row">
     <div class="col-sm-4">
-      <span class="glyphicon logo slideanim"><img src='images/house_icon.jpg' style="width:50%;"/></span>
+      <span class="glyphicon logo slideanim"><img src='images/house_icon.png' style="width:50%;"/></span>
     </div>
     <div class="col-sm-8">
       <h2>Room Selection</h2><br>
@@ -45,7 +45,7 @@
     <p>No roommates to list</p>
   </div>
   <div class="col-sm-4">
-      <span class="glyphicon logo slideanim"><img src='images/person.jpg' style="width:50%;"/></span>
+      <span class="glyphicon logo slideanim"><img src='images/person.png' style="width:50%;"/></span>
   </div>
 </div>
 
