@@ -23,3 +23,5 @@ Contains HTML and PHP for displaying the user interface and CSS for styling.
 - [info](https://github.com/bersonconnor/GettysburgHousingHub/edit/main/front_end/info): Contains text files regarding front end implementation
 ### [back_end](https://github.com/bersonconnor/GettysburgHousingHub/edit/main/back_end)
 Contains PHP and JavaScript for applications functionality.
+- [database](https://github.com/bersonconnor/GettysburgHousingHub/edit/main/back_end/database): Contains SQL files to create and interact with the database
+  - [](https://github.com/bersonconnor/GettysburgHousingHub/edit/main/back_end/sample_data): Contains SQL files to insert sample data
