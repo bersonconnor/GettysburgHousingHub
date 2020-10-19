@@ -10,14 +10,24 @@
 	include_once("components/title.html");
 ?>
 
-<div id="info" class="container-fluid">
+<div id="residence" class="container-fluid">
   <div class="row">
     <div class="col-sm-12">
-      <h2>INFORMATION</h2><br>
-      This container is sad because it is empty :(
+      <h2>RESIDENCE LIFE</h2><br>
+      <p>Nicely formated residence life contact information and links.</p>
     </div>
   </div>
 </div>
+
+<div id="important" class="container-fluid bg-grey">
+  <div class="row">
+    <div class="col-sm-12">
+      <h2>IMPORTANT DATES</h2><br>
+      <p>Template for displaying important dates for housing process.</p>
+    </div>
+  </div>
+</div>
+
 
 <?php
 	include_once("components/footer.html");
