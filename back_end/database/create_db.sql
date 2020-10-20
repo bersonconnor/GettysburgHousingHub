@@ -14,6 +14,8 @@ SET FOREIGN_KEY_CHECKS = 0;
 /* Create each table */
 CREATE TABLE STUDENT (
 	ID int NOT NULL,
+	Login varchar(255),
+	PassHash varchar(32),
 	GroupID int /*UNIQUE*/,
 	BedroomGroupID int /*UNIQUE*/,
 	Fname varchar(255),
