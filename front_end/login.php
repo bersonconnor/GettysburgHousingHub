@@ -13,13 +13,24 @@
 <div id="login" class="container-fluid">
   <div class="row">
   <div class="col-sm-12">
-      <h2>ACCOUNT LOGIN</h2><br>
-      <p>Username</p>
-      <input type="text" name="username" style="width:300px;"/><br /><br />
-      <p>Password</p>
-      <input type="password" name="password" style="width: 300px;"/><br /><br />
-      <br><button class="btn btn-default btn-lg">Login in Now!</button>
-    </div>
+      <h2>ACCOUNT LOGIN</h2>
+
+<?php
+	// If there is a message in the url, get it and print it
+        if (isset($_GET['msg'])) {
+                $msg = $_GET['msg'];
+		print "<p style='color:red;'>$msg</p>";
+        }
+?>
+
+      <br /><p>Username</p>
+      <form name="login" method="POST" action="../back_end/login_f.php">
+	      <input type="text" name="username" style="width:300px;"/><br /><br />
+      	      <p>Password</p>
+      	      <input type="password" name="password" style="width: 300px;"/><br /><br />
+      	      <br><button class="btn btn-default btn-lg">Login in Now!</button>
+      </form>
+  </div>
   </div>
 </div>
 
