@@ -23,7 +23,9 @@
   <div class="row">
     <div class="col-sm-12">
       <h2>IMPORTANT DATES</h2><br>
-      <p>Template for displaying important dates for housing process.</p>
+      <p>August 21   -    First-year residence halls open
+	August 23   -    Upperclass residence halls open
+	August 26   -    First day of classes</p>
     </div>
   </div>
 </div>
