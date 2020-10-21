@@ -1,3 +1,5 @@
+/* Go to relevant database */
+USE f20_3;
 
 /* Drop all existing tables before recreating them */
 DROP TABLE IF EXISTS BUILDING;
