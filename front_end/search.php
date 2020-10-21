@@ -18,25 +18,8 @@ border: none;
 list-style-type: none;
 }
 
-
-.search_bar{
-  margin: auto;
-  width: 1000px;
-  padding: 20px; 
-  outline: black, solid, 10px;
-#border: 2px solid black;
-}
-
-.search_bar input{
-  color: black;
-  font-size = 20px;
-  border: 20px; 
-  width: 100%;
-  padding: 10px;
-#border: 2px solid black;
-}
-
 .table_wrap{
+  
   width: 1000px;
   margin: 30px auto; 
   padding: 10px;
@@ -44,67 +27,149 @@ list-style-type: none;
 }
 
 .table_wrap ul li .options{
-  display:flex;    
+  float: left;
+  display:flex;
+  width:85%;
   align-items:center;
-
-  background:  #f5f5f5;
+  color: white;
+  background:#696969;
+  border: 2px solid white;
+  border-radius: 20px;
   padding: 10px; 
 #border: 2px solid black;
 }
 
-.table_wrap ul li .options .building{
-  width:50%;
+.table_wrap ul li .options .t_building{
+  width:40%;
   padding: 10px; 
-  #border: 2px solid black;
+#border: 2px solid black;
 }
 
-.table_wrap ul li .options .room,
-.table_wrap ul li .options .size{
+.table_wrap ul li .options .t_room{
   width:20%;
-  padding: 20px; 
+  padding: 10px; 
 #border: 2px solid black;
 }
 
-.table_wrap ul li .options .floor_plan,
-.table_wrap ul li .options .status{
-  width:30%;
-  padding: 20px; 
+.table_wrap ul li .options .t_capacity{
+  width:10%;
+  padding: 10px; 
+#border: 2px solid black;
+}
+
+.table_wrap ul li .options .t_floor_plan{
+  width:20%;
+  padding: 10px; 
+#border: 2px solid black;
+}
+
+.table_wrap ul li .options .t_status{
+  width:10%;
+  padding: 10px; 
+#border: 2px solid black;
+}
+
+aside{
+  float: left;
+  width:15%;
+  color: white;
+  padding: 10px;
+  background: #191970;
+  border: 2px solid white;
+  border-radius: 20px;
 #border: 2px solid black;
 }
 
 </style>
 
-  <div class="search_bar">
-    <input type = "text" id = "search_bar" placeholder = "Search with key words">
-  </div>
-  
-  <div class = "table_wrap">
-      <div class = "table_header">
-          
-          <ul>
-            <li>
-              <div class = "options">
-                  <div class = "building">
-                    <span> BUILDING </span>
-                  </div>
-                  <div class = "room">
-                    <span> ROOM </span>
-                  </div>
-                  <div class = "size">
-                    <span> SIZE </span>
-                  </div>
-                  <div class = "floor_plan">
-                    <span> FLOOR PLAN </span>
-                  </div>
-                  <div class = "status">
-                    <span> STATUS </span>
-                  </div>
-              </div>
-            </li>
-          </ul>
-          
-      </div>
-  </div>
+<section class = "table_wrap"><!-- table_wrap-->
+  <div class = "table_header"><!-- table_heard-->
+    <ul>
+    <li>
+      <div class = "options"><!-- options-->
+        <div class = "t_building">
+        <span> Location/Building </span>
+        </div>
+        
+        <div class = "t_room">
+        <span> Room Number </span>
+        </div>
+        
+        <div class = "t_capacity">
+        <span> Capacity </span>
+        </div>
+        
+        <div class = "t_floor_plan">
+        <span> Floor Plan </span>
+        </div>
+        
+        <div class = "t_status">
+        <span> Status </span>
+        </div>
+      </div><!-- options-->
+    </li>
+    </ul> 
+       
+  </div> <!-- table_heard-->
+    
+<aside>  
+  <div class: "filter_bar"><!-- filter_bar-->
+    <div class = "select_building">
+    <p>Location/Building:</p>
+    <select>
+      <option value="" selected disabled hidden>Choose...</option>
+      <option value = "Apple">Apple</option>
+      <option value = "Paxton">Paxton</option>
+      <option value = "Rice">Rice</option>
+    </select>
+    <br>
+    </div>
+    
+    <div class = "select_capacity">
+      <p>Room Capacity:</p>
+      <input type="checkbox" id = "1" name="capacity1" value="1"/>
+      <label for="1">1</label>
+      <input type="checkbox" id = "2" name="capacity2" value="2"/>
+      <label for="2">2</label>
+      <input type="checkbox" id = "3" name="capacity3" value="3"/>
+      <label for="3">3</label>
+      <br>
+      <input type="checkbox" id = "4" name="capacity4" value="4"/>
+      <label for="3">4</label>
+      <input type="checkbox" id = "5" name="capacity5" value="5"/>
+      <label for="3">5</label>
+      <input type="checkbox" id = "6" name="scapacity6" value="6"/>
+      <label for="3">6</label>
+      <br>
+    </div>
+    
+    <div class = "select_kitchen">
+      <p>Kitchen:</p>
+      <input type="radio" id="kitchen" name="kt" value="yes">
+      <label for="kitchen">Yes</label>
+      <input type="radio" id="no_kitchen" name="kt" value="no">
+      <label for="kitchen">No</label>
+      <br>
+      <input type="radio" id="either" name="kt" value="either" checked="checked">
+      <label for="kitchen">Either</label>
+      <br>
+    </div>
+    
+    <div class = "select_parking">
+      <p>Parking:</p>
+      <input type="radio" id="parking" name="pk" value="yes">
+      <label for="kitchen">Yes</label>
+      <input type="radio" id="no_parking" name="pk" value="no">
+      <label for="kitchen">No</label>
+      <br>
+      <input type="radio" id="either" name="pk" value="either" checked="checked">
+      <label for="kitchen">Either</label>
+      <br>
+    </div>
+    
+  </div><!-- filter_bar-->
+</aside>
+</section> <!-- table_wrap-->
 
 
 <?php

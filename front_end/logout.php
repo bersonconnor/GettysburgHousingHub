@@ -14,7 +14,7 @@
 <div id="logout" class="container-fluid">
   <div class="row">
     <div class="col-sm-12">
-      <h2>You have successfully logout</h2><br>
+      <h3>You Have Successfully Logged Out Of Your Account</h3><br>
       #Linked to redirect to login page
     </div>
   </div>
