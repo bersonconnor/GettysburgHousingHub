@@ -3,6 +3,7 @@
 <head>
 	<?php
 		include_once("components/header.html");
+		include_once("../back_end/search_result_f.php");
 	?>
 	<link href="./components/search.css" rel="stylesheet" type="text/css"></link>
 
@@ -45,44 +46,60 @@
   </div> <!-- table_heard-->
 
 <aside>
-  <div class: "filter_bar"><!-- filter_bar-->
-    <div class = "select_building">
-    <p>Location/Building</p>
-    <select style="color:black;width:100%;">
-       <option value="" >Choose...</option>
-       <?php include_once("../back_end/fill_location_f.php"); ?>
-    </select>
-    </div>
-    </br>
+  <div class="filter_bar"><!-- filter_bar-->
+    <form name="search" method="POST" action="../back_end/search_result_f.php">
+	    <!-- Drop down lists need to be styled -->
+	    <div class="select_building">
+	    <p>Location/Building</p>
+	    <select name="name" style="color:black;width:100%;">
+	       <option value="NULL" >Choose...</option>
+	       <?php include_once("../back_end/fill_location_f.php"); ?>
+	    </select>
+	    </div>
+	    </br>
 
-    <div class = "select_capacity">
-    <p>Room Capacity</p>
-    <select style="color:black;width:100%;">
-      <option value="" >Choose...</option>
-      <?php include_once("../back_end/fill_capacity_f.php"); ?>
-    </select>
-    </div>
-    </br>
+	    <div class = "select_capacity">
+	    <p>Room Capacity</p>
+	    <select name="capacity" style="color:black;width:100%;">
+	      <option value="NULL">Choose...</option>
+	      <?php include_once("../back_end/fill_capacity_f.php"); ?>
+	    </select>
+	    </div>
+	    </br>
 
-    <div class = "select_kitchen">
-    <p>Kitchen</p>
-    <select style="color:black;width:100%;">
-      <option value="Either" >Either</option>
-      <option value = "Yes">Yes</option>
-      <option value = "No">No</option>
-    </select>
-    </div>
-    </br>
+	    <div class = "select_kitchen">
+	    <p>Kitchen</p>
+	    <select name="kitchen" style="color:black;width:100%;">
+	      <option value="Either" >Either</option>
+	      <option value = "Yes">Yes</option>
+	      <option value = "No">No</option>
+	    </select>
+	    </div>
+	    </br>
 
-    <div class = "select_parking">
-    <p>Parking</p>
-    <select style="color:black;width:100%;">
-      <option value="Either" >Either</option>
-      <option value = "Yes">Yes</option>
-      <option value = "No">No</option>
-    </select>
-    </div>
+	    <div class = "select_parking">
+	    <p>Parking</p>
+	    <select name="parking" style="color:black;width:100%;">
+	      <option value="Either" >Either</option>
+	      <option value = "Yes">Yes</option>
+	      <option value = "No">No</option>
+	    </select>
+	    </div>
+	    </br>
 
+	    <!-- Styling needs to be moved to a css file -->
+	    <input type="submit" value+"Search" id="search_button"
+						style="background-color: #f1eded;
+						border: none;
+						color: black;
+						padding:5px 5px;
+						text-align: center;
+						text-decoration: none;
+						display: inline-block;
+						font-size: 16px;
+						width:100%;
+						border-radius: 4px;" />
+    </form>
     <!-- <div class = "select_capacity">
       <p>Room Capacity:</p>
       <input type="checkbox" id = "1" name="capacity1" value="1"/>
