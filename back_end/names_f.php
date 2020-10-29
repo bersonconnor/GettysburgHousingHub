@@ -10,8 +10,7 @@
         $query = "SELECT CONCAT(Lname, ' ', Fname) AS Name FROM STUDENT ORDER BY Name ASC;";
         $res = $db->query($query);
 
-	print("<option value=''>Count($res)</option>");
-        if ($res != TRUE) {
+        if ($res != FALSE) {
 		// Iterate over all the capacities
                 while ($row = $res->fetch()) {
                         $name = $row['Name'];
