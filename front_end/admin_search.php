@@ -16,7 +16,7 @@
 
 <aside>
   <div class="filter_bar"><!-- filter_bar-->
-    <form name="search_form" method="POST" <!--action="../back_end/search_result_f.php" --> >
+    <form name="search_form" method="POST">
             <!-- TODO: DROP DOWNS NEED TO BE STYLED TO MATCH REST OF PAGE -->
             <div class="select_building">
             <p>Location/Building</p>
@@ -55,7 +55,7 @@
             </select>
             </div>
             </br>
-	
+
 	    <div class = "show_students">
 	    <p>Show Residents per Room</p>
 	    <select name="students" style="color:black;width:100%;">
