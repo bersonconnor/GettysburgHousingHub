@@ -65,7 +65,17 @@
 	    </div>
 	    </br>
 
-            <!-- TODO: BUTTON STYLING NEEDS TO BE FINALIZED AND MOVED TO CSS FILE -->
+	    <div class = "show_students">
+            <p>Search by Student Name</p>
+            <select name="student_name" style="color:black;width:100%;">
+	    <option value="">Choose...</option>
+        	<?php include_once("../back_end/names_f.php"); ?>
+            </select>
+            </div>
+            </br>
+		
+
+	<!-- TODO: BUTTON STYLING NEEDS TO BE FINALIZED AND MOVED TO CSS FILE -->
             <input type="submit" name="search" id="search" value="Search" id="search_button"
                                                 style="background-color: #f1eded;
                                                 border: none;
