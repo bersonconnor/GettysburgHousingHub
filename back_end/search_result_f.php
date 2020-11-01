@@ -34,41 +34,69 @@
 
 			/* If the current key is not search as that is the button and is not a default value */
 			if ($value !== '' && $key !== 'search') {
-				if ($i !== 0 && $i !== $n - 1) {
+				if ($i !== 0 && $i !== $n - 1 && $params !== "") {
 					$params .= " AND ";
 				}
-				$params .= "$key='$value'";
+
+				/* If the key refers to a boolean variable */
+				if ($key=='Kitchen' || $key=='Parking') {
+					$params .= "ROOM.$key=";
+
+					/* If the drop down says yes */
+					if ($value == "Yes") {
+						$params .= "1"; /* Find when True */
+					}
+					else {
+						$params .= "0"; /* Otherwise, find when False */
+					}
+				}
+				/* Otherwise, it is not a boolean */
+				else {
+					$params .= "$key='$value'";
+				}
 			}
 		}
 
-		/* If we have any parameters, then we create a WHERe statement */
+		/* If we have any parameters, then we create a WHERE statement */
 		if ($params !== "") {
 		        $q .= " WHERE " . $params;
 		}
 		$q .= ";";
 
-
-		// TODO: PRINTING NEEDS TO BE CHANGED SO THAT IT PRINTS FORMATTED AND STYLIZED RESULTS
-
-
 		/* If the query is valid */
 		$res_q = $db->query($q);
 		if ($res_q == TRUE) {
-		        //print "<!DOCTYPE html><html><head><title>Search Tester</title></head><body>";
-		        print "<table><tr><td>Building</td><td>Room Number</td><td>Capacity</td><td>Floor Plan</td></tr>";
-
+			echo "<div style='padding: 15px;'>";
+			$i = 0;
 			/* Print every search result that matches the user input */
 			while ($row=$res_q->fetch()) {
+				/* Get all the values from the row and put into an array */
 				$building 	= $row['Name'];
 				$number 	= $row['Number'];
 				$size		= $row['Size'];
 				$floor_plan	= $row['FloorPlan'];
-				print "<tr><td>$building</td><td>$number</td><td>$size</td><td>$floor_plan</td></tr>";
+				$varArr		= array($building, $number, $size, $floor_plan);
+
+				/* Print with grey as row background if odd and nothing if even*/
+				if ($i % 2 == 0) {
+					echo "<div class='row'>";
+				}
+				else {
+					echo "<div class='row' style='background: #f2f2f2;'>";
+				}
+
+				/* Print each variable */
+				foreach ($varArr as $val) {
+					echo "<div class='col-md-2'><p style='color: black;'>$val</p></div>";
+				}
+
+				$i = $i + 1;
+				echo "</div>";
 			}
+			echo "</div>";
 		}
 		else {
 			print"<p>ERROR</p>";
 		}
-		print "</table>";
 	}
 ?>
