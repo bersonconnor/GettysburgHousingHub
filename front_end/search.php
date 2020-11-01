@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<?php
-		include_once("components/header.html");
-	?>
-	<link href="./components/search.css" rel="stylesheet" type="text/css"></link>
+        <?php
+                include_once("components/header.html");
+        ?>
+        <link href="./components/search.css" rel="stylesheet" type="text/css"></link>
 
 	<style>
 		.round_input {
@@ -37,8 +37,8 @@
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 
 <?php
-	include_once("components/navbar.html");
-	include_once("components/title.html");
+        include_once("components/navbar.html");
+        include_once("components/title.html");
 ?>
 <div style="width:75%;margin-right: auto; margin-left: auto;">
         <div class='row'><div class='col-md-12'><h2>Search Filters</h2></div></div>
@@ -129,8 +129,8 @@
 </div>
 
 <?php
-	include_once("components/footer.html");
-	include_once("components/anim.html");
+        include_once("components/footer.html");
+        include_once("components/anim.html");
 ?>
 
 </body>

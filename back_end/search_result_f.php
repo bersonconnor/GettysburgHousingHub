@@ -40,8 +40,8 @@
 
 				/* If the key refers to a boolean variable */
 				if ($key=='Kitchen' || $key=='Parking') {
-					$params .= "ROOM.$key=";
-
+					if ($key == 'Kitchen') { $params .= "ROOM.$key="; }
+					if ($key == 'Parking') { $params .= "BUILDING.$key="; }
 					/* If the drop down says yes */
 					if ($value == "Yes") {
 						$params .= "1"; /* Find when True */
@@ -62,7 +62,7 @@
 		        $q .= " WHERE " . $params;
 		}
 		$q .= ";";
-
+		echo "$q";
 		/* If the query is valid */
 		$res_q = $db->query($q);
 		if ($res_q == TRUE) {
