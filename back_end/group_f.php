@@ -1,8 +1,8 @@
 <?php
 
-/*
-* Check if the user is already in a group 
-*/
+include_once("db_connect.php");
+
+//Check if the user is already in a group 
 function checkGroup($db, $login){
 
   $group = "SELECT GroupID FROM STUDENT WHERE '$login' = Login";
@@ -11,24 +11,23 @@ function checkGroup($db, $login){
   
   if($q != FALSE){
     $result = $q->fetch();
+    $g = $result['GroupID'];
     //The user is not in a group yet
-    if($result == NULL){
-      return -1;
+    if($g != NULL){
+      return 1;
     }
     //The user is in a group
     else{
-      return 1;
+      return -1;
     }
-    
   }
   else{
     print"<p>ERROR</p>";
   }
 }
 
-/*
-* Create a group with user himself as the member; 
-*/
+//Create a group with user himself as the member; 
+
 function createGroup($db, $login){
   $gId = "SELECT MAX(GroupID) FROM RoomGroup";
   $q1 = $db->query($id);
@@ -51,8 +50,7 @@ function createGroup($db, $login){
 }
 
 /*
-* Leave a group
-*/
+// Leave a group
 function leaveGroup($db, $login){
 
   $leave = "UPDATE STUDENT SET GroupID = NULL '$login' = Login";
@@ -65,29 +63,48 @@ function leaveGroup($db, $login){
     print"<p>ERROR</p>";
   }
 }
-
-/*
-* Show all the group member of the user
 */
+
+//Show all the group member of the user
+
+
 function showGroup($db, $login){
-  $group = "SELECT GroupID, Fname, LnameFROM STUDENT NATRUAL JOIN  ROOM_GROUP 
-            WHERE GroupID = (SELECT GroupID FROM STUDENT, WHERE '$login' = Login";);
+  $group = "SELECT GroupID, Fname, Lname FROM STUDENT NATURAL JOIN  ROOM_GROUP
+                WHERE GroupID = (SELECT t2.GroupID FROM STUDENT AS t2 WHERE '$login' = Login)";
   $q = $db->query($group);
   
   if($q != FALSE){
-    //Show all 
-    While($row = $result = $q->fetch()){
+    $i = 0;
+    //Get all the members that are in the same group
+    printf("<CAPTION>This Group has %d rows and %d columns</CAPTION>\n", $q->rowCount(), $q->columnCount());
+    While($row = $q->fetch()){
       $groupID = $row['GroupID'];
-      $Fname = $row['Fname'];
-      $Lname = $row['Lname'];
+      $fname = $row['Fname'];
+      $lname = $row['Lname'];
+      $arr = array($groupID, $fname, $lname);
       
-      //print each rows;
+      if ($i % 2 == 0) {
+					echo "<div class='row' style = 'width: 50%;'>";
+				}
+				else {
+					echo "<div class='row' style='background: #f2f2f2; width: 50%;'>";
+				}
+
+				/* Print each variable */
+				foreach ($arr as $val) {
+					echo "<div class='col-md-2'><p style='color: black;'>$val</p></div>";
+				}
+
+				$i = $i + 1;
+				echo "</div>";      
     }
+    return TRUE;
   }
   else{
-    print"<p>ERROR</p>";
+    return FALSE;
   }
 }
+
 
 //Add the group lead components
 ?>
