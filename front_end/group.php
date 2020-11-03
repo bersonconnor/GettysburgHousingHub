@@ -13,11 +13,54 @@
 <div id="container_name" class="container-fluid">
   <div class="row">
     <div class="col-sm-12">
-      <h2>Group</h2><br>
       
+<?php
+
+	    include_once("../back_end/db_connect.php");
+	    include_once("../back_end/group_utils.php");
+      //Check user's group
       
-      <p>Display group or message that says the user does not have a group yet</p>
-      
+      $login = "jdoe";
+      $check = checkGroup($db, $login);    
+      if($check == -1){
+        print "<h2>You do not belong to a group</h2>";
+      }
+      else if($check == 1){
+        print "<h2>You Group: </h2>";
+        $show = showGroup($db, $login);
+        if($show == FALSE){
+          print"<h3>SHOW GROUP ERROR</h3>";
+          }
+      }
+      else{
+         print"<h3>CHECK GROUP ERROR</h3>";
+      }
+?>  
+    <br>
+    <form action='' method='post'>
+    <button name='submit' value='1'
+         <?php if($check==1){
+           echo ' disabled= disabled ';
+          }
+          ?>>Create Group</button>
+    
+    <button name='submit' value='-1'
+         <?php if($check==-1){
+           echo ' disabled= disabled ';
+          }
+          ?>>Leave Group</button>
+    </form>
+    
+    <?php
+     if($_POST['submit']==1){
+        echo "1";
+      }
+      else if($_POST['submit']==-1){
+        echo "-1";
+      }
+    ?>
+    
+    
     </div>
   </div>
 </div>
