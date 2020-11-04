@@ -15,13 +15,14 @@
     <div class="col-sm-12">
       
 <?php
-
+      
 	    include_once("../back_end/db_connect.php");
-	    include_once("../back_end/group_utils.php");
+	    include_once("../back_end/group_f.php");
       //Check user's group
       
-      $login = "jdoe";
-      $check = checkGroup($db, $login);    
+      $login = "jsmith";
+      $check = checkGroup($db, $login);  
+      
       if($check == -1){
         print "<h2>You do not belong to a group</h2>";
       }
@@ -36,27 +37,34 @@
          print"<h3>CHECK GROUP ERROR</h3>";
       }
 ?>  
+  
     <br>
-    <form action='' method='post'>
-    <button name='submit' value='1'
+    <form action='' method='get'>
+    <input type = "submit" name = "create" value = "Create Group"
          <?php if($check==1){
            echo ' disabled= disabled ';
           }
-          ?>>Create Group</button>
+          ?>/>
     
-    <button name='submit' value='-1'
+    <input type = "submit" name ="leave" value = "Leave Group"
          <?php if($check==-1){
            echo ' disabled= disabled ';
           }
-          ?>>Leave Group</button>
+          ?>/>
     </form>
     
+    
     <?php
-     if($_POST['submit']==1){
-        echo "1";
-      }
-      else if($_POST['submit']==-1){
-        echo "-1";
+      print_r($_GET); 
+     if (isset($_GET['create'])) {
+       
+       $create = createGroup($db, $login);         
+     }
+       
+      else if($_GET['leave']){
+        echo "Leaving Group";
+        $leave = leaveGroup($db, $login);
+
       }
     ?>
     
