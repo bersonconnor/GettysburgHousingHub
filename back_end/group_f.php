@@ -98,7 +98,13 @@ function showGroup($db, $login){
   if($q != FALSE){
     $i = 0;
     //Get all the members that are in the same group
-    printf("<CAPTION>This Group has %d rows and %d columns</CAPTION>\n", $q->rowCount(), $q->columnCount());
+    printf("<CAPTION>The group has %d member(s)</CAPTION>\n", $q->rowCount());
+    
+    echo "<div class='row' style = 'width: 100%; background: black;'>";
+    echo "<div class='col-md-2'><p style='color: white; font-size: 18px'>Group ID</p></div>";
+    echo "<div class='col-md-2'><p style='color: white; font-size: 18px'>First Name</p></div>";
+    echo "<div class='col-md-2'><p style='color: white; font-size: 18px'>Last Name</p></div>";
+    echo "</div>";
     While($row = $q->fetch()){
       $groupID = $row['GroupID'];
       $fname = $row['Fname'];
@@ -106,17 +112,16 @@ function showGroup($db, $login){
       $arr = array($groupID, $fname, $lname);
       
       if ($i % 2 == 0) {
-					echo "<div class='row' style = 'width: 50%;'>";
+					echo "<div class='row' style = 'width: 100%; border: solid 1px black;'>";
 				}
 				else {
-					echo "<div class='row' style='background: #f2f2f2; width: 50%;'>";
+					echo "<div class='row' style='background: #f2f2f2; width: 100%;border: solid 1px black;'>";
 				}
 
 				// Print each variable 
 				foreach ($arr as $val) {
-					echo "<div class='col-md-2'><p style='color: black;'>$val</p></div>";
+					echo "<div class='col-md-2'><p style='color: black; font-size: 18px'>$val</p></div>";
 				}
-
 				$i = $i + 1;
 				echo "</div>";      
     }
