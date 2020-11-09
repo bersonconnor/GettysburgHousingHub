@@ -10,9 +10,9 @@
 	include_once("components/title.html");
 ?>
 
-<div id="container_name" class="container-fluid">
+<div id="main" class="container-fluid">
   <div class="row">
-    <div class="col-sm-12">
+    <div class="col-sm-8">
       
 <?php
       
@@ -27,7 +27,7 @@
         print "<h2>You do not belong to a group</h2>";
       }
       else if($check == 1){
-        print "<h2>You Group: </h2>";
+        print "<h2>Your Group: </h2>";
         $show = showGroup($db, $login);
         if($show == FALSE){
           print"<h3>SHOW GROUP ERROR</h3>";
@@ -44,19 +44,19 @@
          <?php if($check==1){
            echo ' disabled= disabled ';
           }
-          ?>/>
+          ?>style= "border-radius: 12px; color: black"/>
     
     <input type = "submit" name ="leave" value = "Leave Group"
          <?php if($check==-1){
            echo ' disabled= disabled ';
           }
-          ?>/>
+          ?>style = "border-radius: 12px; color: black"/>
     </form>
     
     
-    <?php
-      print_r($_GET); 
-     if (isset($_GET['create'])) {
+    <?php 
+      //print_r($_GET); 
+      if (isset($_GET['create'])) {
        
        $create = createGroup($db, $login);         
      }
@@ -67,8 +67,6 @@
 
       }
     ?>
-    
-    
     </div>
   </div>
 </div>
