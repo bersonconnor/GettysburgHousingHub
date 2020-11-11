@@ -21,7 +21,7 @@
       //Check user's group
       
       session_start();
-      echo $_SESSION['user'];
+      //echo $_SESSION['user'];
       $login = $_SESSION['user'];
       $check = checkGroup($db, $login);  
       
