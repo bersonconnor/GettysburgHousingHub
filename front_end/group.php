@@ -1,6 +1,3 @@
-<?php
-session_start();
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,10 +20,9 @@ session_start();
 	    include_once("../back_end/group_f.php");
       //Check user's group
       
-      echo session_id();
-      print_r($_SESSION);
+      session_start();
       echo $_SESSION['user'];
-      $login = "mmiller";
+      $login = $_SESSION['user'];
       $check = checkGroup($db, $login);  
       
       if($check == -1){
