@@ -1,18 +1,21 @@
 <?php
+  session_start();
 	include_once("db_connect.php");
 	include_once("account_utils.php");
 
 	// Get input from the form
 	$login  = $_POST['username'];
-        $hash   = $_POST['password'];
+  $hash   = $_POST['password'];
 
-        // Check user's status
-        $result = checkUser($db, $login, $hash);
+  // Check user's status
+  $result = checkUser($db, $login, $hash);
 
-        if ($result == 1) {
-                header("Location: ../front_end/landing.php");
-        }
-        else {
+  if ($result == 1) {
+    $_SESSION['user'] = $login;
+    header("Location: ../front_end/landing.php");
+    }
+    
+  else {
 		$msg = "";
 		if ($result == -1) {
                 	$msg = "Cannot find your information. Please try again.";
