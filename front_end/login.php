@@ -6,7 +6,7 @@
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 
 <?php
-	include_once("components/navbar.html");
+	//include_once("components/navbar.html");
 	include_once("components/title.html");
 ?>
 
@@ -28,8 +28,9 @@
 	      <input type="text" name="username" style="width:300px;"/><br /><br />
       	      <p>Password</p>
       	      <input type="password" name="password" style="width: 300px;"/><br /><br />
-      	      <br><button class="btn btn-default btn-lg">Login in Now!</button>
+      	      <br><button class="btn btn-default btn-lg" name = "login">Login in Now!</button>
       </form>
+      
   </div>
   </div>
 </div>
