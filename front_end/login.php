@@ -1,3 +1,11 @@
+<?php
+if(session_id() != ''){
+    session_destroy(); 
+}
+session_start();
+$_SESSION = array();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
