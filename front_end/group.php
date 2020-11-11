@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,7 +15,7 @@
 
 <div id="main" class="container-fluid">
   <div class="row">
-    <div class="col-sm-8">
+    <div class="col-sm-12" style = "color: black; front: 18px">
       
 <?php
       
@@ -20,7 +23,10 @@
 	    include_once("../back_end/group_f.php");
       //Check user's group
       
-      $login = "jsmith";
+      echo session_id();
+      print_r($_SESSION);
+      echo $_SESSION['user'];
+      $login = "mmiller";
       $check = checkGroup($db, $login);  
       
       if($check == -1){
@@ -28,14 +34,16 @@
       }
       else if($check == 1){
         print "<h2>Your Group: </h2>";
+        $checkLeader = checkleader($db, $login);
+        if($checkLeader == 1){
+          print "<h3>You are the group leader </h3></br>";
+        }
         $show = showGroup($db, $login);
         if($show == FALSE){
           print"<h3>SHOW GROUP ERROR</h3>";
           }
       }
-      else{
-         print"<h3>CHECK GROUP ERROR</h3>";
-      }
+      
 ?>  
   
     <br>
@@ -44,13 +52,13 @@
          <?php if($check==1){
            echo ' disabled= disabled ';
           }
-          ?>style= "border-radius: 12px; color: black"/>
+          ?>style= "border-radius: 12px; color: black; margin-left:1000px; "/>
     
     <input type = "submit" name ="leave" value = "Leave Group"
          <?php if($check==-1){
            echo ' disabled= disabled ';
           }
-          ?>style = "border-radius: 12px; color: black"/>
+          ?>style = "border-radius: 12px; color: black; margin-left:100px%;"/>
     </form>
     
     
