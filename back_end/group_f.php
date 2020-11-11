@@ -91,7 +91,7 @@ function leaveGroup($db, $login){
 
 //Show all the group member of the user
 function showGroup($db, $login){
-  $group = "SELECT GroupID, Fname, Lname FROM STUDENT NATURAL JOIN  ROOM_GROUP
+  $group = "SELECT GroupID, ID, Fname, Lname FROM STUDENT NATURAL JOIN  ROOM_GROUP
                 WHERE GroupID = (SELECT t2.GroupID FROM STUDENT AS t2 WHERE '$login' = Login)";
   $q = $db->query($group);
   
@@ -102,14 +102,16 @@ function showGroup($db, $login){
     
     echo "<div class='row' style = 'width: 100%; background: black;'>";
     echo "<div class='col-md-2'><p style='color: white; font-size: 18px'>Group ID</p></div>";
+    echo "<div class='col-md-2'><p style='color: white; font-size: 18px'>Studnet ID</p></div>";
     echo "<div class='col-md-2'><p style='color: white; font-size: 18px'>First Name</p></div>";
     echo "<div class='col-md-2'><p style='color: white; font-size: 18px'>Last Name</p></div>";
     echo "</div>";
     While($row = $q->fetch()){
       $groupID = $row['GroupID'];
+      $id = $row['ID'];
       $fname = $row['Fname'];
       $lname = $row['Lname'];
-      $arr = array($groupID, $fname, $lname);
+      $arr = array($groupID, $id, $fname, $lname);
       
       if ($i % 2 == 0) {
 					echo "<div class='row' style = 'width: 100%; border: solid 1px black;'>";
@@ -132,6 +134,40 @@ function showGroup($db, $login){
   }
 }
 
+//check if the user is the group leader
+function checkleader($db, $login){
+  
+    $group = "SELECT GroupID FROM STUDENT WHERE '$login' = Login";
+    $q1 = $db->query($group);
+    $row1 = $q1->fetch();
+    $gID = $row1['GroupID'];  
+        
+    $check = "SELECT LeaderID FROM ROOM_GROUP WHERE GroupID = '$gID';";
+    $q2 = $db->query($check);
+    $row2 = $q2->fetch();
+    $lID = $row2['LeaderID'];
+    
+    $s_id = "SELECT ID FROM STUDENT WHERE '$login' = Login; ";
+    $q3 = $db->query($s_id);
+    $row3 = $q3->fetch();
+    $iD = $row3['ID'];
+    
+    $leader_name= "SELECT Fname, Lname FROM STUDENT WHERE '$iD' = ID ";
+    $q4 = $db->query($leader_name);
+    $row4 = $q4->fetch();
+    $f_name = $row4['Fname'];
+    $l_name = $row4['Lname'];
 
-//Add the group lead components
-?>
+    if($q1 != false && $q2 != false && $q3 != false){
+        if($iD == $lID){
+          return 1;
+        }
+        else{
+          print "<h3>The group leader is $f_name $l_name</h3></br>";
+        }
+    }
+    else{
+      return false;
+    }
+    
+}
