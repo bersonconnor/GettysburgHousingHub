@@ -6,16 +6,17 @@
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 
 <?php
-	include_once("components/navbar.html");
+	//include_once("components/navbar.html");
 	include_once("components/title.html");
 ?>
 
 <!-- MESSAGES -->
-<div id="logout" class="container-fluid">
+<div id="logout" class="container-fluid" style= "color: black; font-size: 20px">
   <div class="row">
     <div class="col-sm-12">
-      <h3>You Have Successfully Logged Out Of Your Account</h3><br>
-      #Linked to redirect to login page
+      <h2>You Have Successfully Logged Out of Your Account</h2>
+      <h3>You can choose to log back in by</h3>
+      <a href="login.php"> Clicking Here</a>
     </div>
   </div>
 </div>
