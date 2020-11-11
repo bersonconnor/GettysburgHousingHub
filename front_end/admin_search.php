@@ -56,17 +56,8 @@
             </div>
             </br>
 
-	    <div class = "show_students">
-	    <p>Show Residents per Room</p>
-	    <select name="students" style="color:black;width:100%;">
-	      <option value = "Yes">Yes</option>
-	      <option value = "No">No</option>
-	    </select>
-	    </div>
-	    </br>
-
-	    <div class = "show_students">
-            <p>Search by Student Name</p>
+	    <div class = "student_search">
+	    <p>Search by Student Name</p>
             <select name="student_name" style="color:black;width:100%;">
 	    <option value="">Choose...</option>
         	<?php include_once("../back_end/names_f.php"); ?>
@@ -93,6 +84,13 @@
 </aside>
 </section> <!-- table_wrap-->
 
+<?php
+        include_once("../back_end/admin_search_f.php");
+        if(array_key_exists('search', $_POST)) {
+                search();
+        }
+
+?>
 
 
 </BODY>
