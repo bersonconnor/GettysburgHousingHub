@@ -10,19 +10,35 @@
 	include_once("components/title.html");
 ?>
 
+
+<?php
+include_once("../back_end/db_connect.php");
+include_once("../back_end/group_f.php");
+session_start();
+//echo $_SESSION['user'];
+$login = $_SESSION['user'];
+//print_r($_POST);
+
+$op = $_GET['op'];
+$studentID = $_POST['id'];
+
+if($op == "add") {
+  $add = leader_add($db, $login, $studentID);
+}
+else if($op == "remove") {
+  $remove = leader_remove($db, $login, $studentID);
+}
+?>
+
+
+
 <div id="main" class="container-fluid">
   <div class="row">
     <div class="col-sm-12" style = "color: black; front: 18px">
       
 <?php
-      
-	    include_once("../back_end/db_connect.php");
-	    include_once("../back_end/group_f.php");
+      //include_once("../back_end/group_f.php");
       //Check user's group
-      
-      session_start();
-      //echo $_SESSION['user'];
-      $login = $_SESSION['user'];
       $check = checkGroup($db, $login);  
       
       if($check == -1){
@@ -41,36 +57,56 @@
       }
       
 ?>  
-  
-    <br>
+  <br>
+  <span style="float:left; color: black; font-size: 18px">
+      <form name="add" method="post" action="group.php?op=add">
+      <input type="text" name="id"placeholder="Student ID" /></br>
+      <INPUT type="submit" value="Add a new member" 
+          <?php if($check != 1){
+           echo ' disabled= disabled ';
+          }
+          ?>style= "border-radius: 12px;"/>  
+    </form>
+    </span>
+    <span style="float:left; color: black; font-size: 18px">
+    <form name="remove" method="post" action="group.php?op=remove">
+      <input type="text" name="id"placeholder="Student ID" /></br>
+      <INPUT type="submit" value="Remove a member" 
+          <?php if($checkLeader != 1){
+           echo ' disabled= disabled ';
+          }
+          ?>style= "border-radius: 12px;"/>
+    </form>    
+    </span>
+    
+    <span style="float:right; color: black; font-size: 18px">
     <form action='' method='get'>
     <input type = "submit" name = "create" value = "Create Group"
          <?php if($check==1){
            echo ' disabled= disabled ';
           }
-          ?>style= "border-radius: 12px; color: black; margin-left:1000px; "/>
+          ?>style= "border-radius: 12px;"/>
     
     <input type = "submit" name ="leave" value = "Leave Group"
          <?php if($check==-1){
            echo ' disabled= disabled ';
           }
-          ?>style = "border-radius: 12px; color: black; margin-left:100px%;"/>
+          ?>style = "border-radius: 12px;"/>
     </form>
-    
+    </span>
     
     <?php 
       //print_r($_GET); 
       if (isset($_GET['create'])) {
-       
        $create = createGroup($db, $login);         
      }
        
       else if($_GET['leave']){
-        echo "Leaving Group";
         $leave = leaveGroup($db, $login);
 
       }
     ?>
+    
     </div>
   </div>
 </div>
