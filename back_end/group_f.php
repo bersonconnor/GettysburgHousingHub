@@ -101,10 +101,10 @@ function showGroup($db, $login){
     printf("<CAPTION>The group has %d member(s)</CAPTION>\n", $q->rowCount());
     
     echo "<div class='row' style = 'width: 100%; background: black;'>";
-    echo "<div class='col-md-2'><p style='color: white; font-size: 18px'>Group ID</p></div>";
-    echo "<div class='col-md-2'><p style='color: white; font-size: 18px'>Studnet ID</p></div>";
-    echo "<div class='col-md-2'><p style='color: white; font-size: 18px'>First Name</p></div>";
-    echo "<div class='col-md-2'><p style='color: white; font-size: 18px'>Last Name</p></div>";
+    echo "<div class='col-md-2'><p style='color: white; font-size: 20px'>Group ID</p></div>";
+    echo "<div class='col-md-2'><p style='color: white; font-size: 20px'>Studnet ID</p></div>";
+    echo "<div class='col-md-2'><p style='color: white; font-size: 20px'>First Name</p></div>";
+    echo "<div class='col-md-2'><p style='color: white; font-size: 20px'>Last Name</p></div>";
     echo "</div>";
     While($row = $q->fetch()){
       $groupID = $row['GroupID'];
@@ -169,5 +169,112 @@ function checkleader($db, $login){
     else{
       return false;
     }
-    
 }
+
+//The leader may choose to add a new group member ($login is the leader and $studentID is the member being process)
+function leader_add($db, $login, $studentID){
+  
+//Check the ID being added
+
+  $eval = "SELECT ID FROM STUDENT WHERE $studentID = ID;";
+  $q = $db->query($eval);
+  if($q != false){
+    if($q->rowCount()==0){
+      print "<p style='color:red;'>Student ID does not exits</p>";
+      return false;
+    }
+  }
+  else{
+    print"<p>ERROR</p>";
+    return false;
+  }
+
+//Add and update the new member into the group  
+  $gId = "SELECT GroupID FROM STUDENT WHERE '$login' = Login";
+  $q1 = $db->query($gId);
+  $row1 = $q1->fetch();
+  $group_ID = $row1['GroupID'];
+
+  $check = "SELECT GroupID FROM STUDENT WHERE ID = '$studentID'";
+  $q2= $db->query($check);
+  $row2 = $q2->fetch();
+  $curr_Group = $row2['GroupID'];
+  
+  $update_size = "UPDATE ROOM_GROUP SET Size = Size+1 WHERE GROUPID = '$group_ID'";
+  $q3 = $db->query($update_size);  
+  
+  if($q1 != false && $q2 != false && $q3 != false){
+    
+    //Add to the group only f the student is not in a group yet
+    if($curr_Group == NULL){
+      $add = "UPDATE STUDENT SET GROUPID = $group_ID WHERE ID = '$studentID'";
+      $q4= $db->query($add);
+      return true;
+    }
+    else{
+      print "<p style='color:red;'>The student is already in a group</p>";
+    }
+  }
+  else{
+    print"<p>ERROR</p>";
+  }
+}
+
+//The leader may choose to remove a group member ($login is the leader and $studentID is the member being process)
+function leader_remove($db, $login, $studentID){
+
+//Check the ID being added
+  
+  $eval = "SELECT ID FROM STUDENT WHERE $studentID = ID;";
+  $q = $db->query($eval);
+  if($q != false){
+    if($q->rowCount()==0){
+      print "<p style='color:red;'>Student ID does not exits</p>";
+      return false;
+    }
+  }
+  else{
+    print"<p>ERROR</p>";
+    return false;
+  }
+  
+  //Check if the student is in the group
+  
+  //The student's current groupID
+  $gId = "SELECT GroupID FROM STUDENT WHERE '$studentID' = ID";
+  $q = $db->query($gId);
+  $row = $q->fetch();
+  $groupID = $row['GroupID'];
+  
+  //The leader's groupID
+  $leader_group = "SELECT GroupID FROM STUDENT WHERE '$login' = Login";
+  $q1 = $db->query($leader_group);
+  $row1 = $q1->fetch();
+  $l_groupID = $row1['GroupID'];
+  
+  if($q != false && $q1 != false){
+    if($groupID - $l_groupID != 0){
+      print "<p style='color:red;'>The student is not in the group</p>";
+      return false;
+      }
+    }
+  else{
+    print"<p>ERROR</p>";
+    return false;
+    }
+
+  $remove = "UPDATE STUDENT SET GROUPID = NULL WHERE ID = '$studentID'";
+  $q2 = $db->query($remove);
+  
+  $update_size = "UPDATE ROOM_GROUP SET Size = Size-1 WHERE GroupID = '$group_ID'";
+  $q3 = $db->query($update_size);
+  
+  if($q2 != false && $q3 != false){
+    return true;
+  }
+  else{
+    print"<p>ERROR</p>";
+  }
+  
+}
+?>
