@@ -1,3 +1,7 @@
+<?
+session_start();
+session_destroy();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
