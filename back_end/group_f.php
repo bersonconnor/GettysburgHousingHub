@@ -91,42 +91,59 @@ function leaveGroup($db, $login){
 
 //Show all the group member of the user
 function showGroup($db, $login){
+ 
+  $studnet_ID = "SELECT ID FROM STUDENT WHERE '$login' = Login";
+  $q1 = $db->query($studnet_ID);
+  $ID = $q1->fetch();
+  $ID_value = $ID['ID'];
+  
   $group = "SELECT GroupID, ID, Fname, Lname FROM STUDENT NATURAL JOIN  ROOM_GROUP
                 WHERE GroupID = (SELECT t2.GroupID FROM STUDENT AS t2 WHERE '$login' = Login)";
-  $q = $db->query($group);
+  $q2 = $db->query($group);
   
-  if($q != FALSE){
+  if($q1 != FALSE && $q2 != False){
     $i = 0;
     //Get all the members that are in the same group
-    printf("<CAPTION>The group has %d member(s)</CAPTION>\n", $q->rowCount());
+    printf("<CAPTION>The group has %d member(s)</CAPTION>\n", $q2->rowCount());
     
-    echo "<div class='row' style = 'width: 100%; background: black;'>";
-    echo "<div class='col-md-2'><p style='color: white; font-size: 20px'>Group ID</p></div>";
-    echo "<div class='col-md-2'><p style='color: white; font-size: 20px'>Studnet ID</p></div>";
-    echo "<div class='col-md-2'><p style='color: white; font-size: 20px'>First Name</p></div>";
-    echo "<div class='col-md-2'><p style='color: white; font-size: 20px'>Last Name</p></div>";
+    echo "<form name = 'remove' method = 'post' action = 'group.php?op=remove'>";
+    echo "<div class='row' style = 'background: #3467d4; width: 100%; padding: 10px; border-radius: 12px; border: solid 0.5px black'>";
+    echo "<div class='col-md-2'><p style='color: white; font-size: 22px'>Group ID</p></div>";
+    echo "<div class='col-md-2'><p style='color: white; font-size: 22px'>Studnet ID</p></div>";
+    echo "<div class='col-md-2'><p style='color: white; font-size: 22px'>First Name</p></div>";
+    echo "<div class='col-md-2'><p style='color: white; font-size: 22px'>Last Name</p></div>";
     echo "</div>";
-    While($row = $q->fetch()){
+    While($row = $q2->fetch()){
       $groupID = $row['GroupID'];
       $id = $row['ID'];
       $fname = $row['Fname'];
       $lname = $row['Lname'];
-      $arr = array($groupID, $id, $fname, $lname);
+      $checkbox = "<INPUT type = 'checkbox' name='cbStudent[]' value ='$id' style = 'width: 18px; height: 18px';/>";
+      if($id == $ID_value){
+        $arr = array($groupID, $id, $fname, $lname);
+      }
+      else{
+        $arr = array($groupID, $id, $fname, $lname, $checkbox);
+      }
       
       if ($i % 2 == 0) {
-					echo "<div class='row' style = 'width: 100%; border: solid 1px black;'>";
+					echo "<div class='row' style = ' background: #f2f2f2; width: 100%; font-size: 22px; padding: 10px; border-radius: 12px; border: solid 0.5px black;'>";
 				}
 				else {
-					echo "<div class='row' style='background: #f2f2f2; width: 100%;border: solid 1px black;'>";
+					echo "<div class='row' style='background: #9dbede ; width: 100%; font-size: 22px; padding: 10px; border-radius: 12px; border: solid 0.5px black;'>";
 				}
 
 				// Print each variable 
 				foreach ($arr as $val) {
-					echo "<div class='col-md-2'><p style='color: black; font-size: 18px'>$val</p></div>";
+          echo "<div class='col-md-2'><p style='color: black; font-size: 18px'>$val</p></div>";
 				}
 				$i = $i + 1;
 				echo "</div>";      
     }
+    if(checkleader($db, $login) == 1){
+      echo "<br/><INPUT type='submit' value= 'Remove Member(s)' style= 'float: right; font-size: 18px; border-radius: 12px;'/>";  
+    }
+    echo "</form>";
     return TRUE;
   }
   else{
@@ -145,30 +162,51 @@ function checkleader($db, $login){
     $check = "SELECT LeaderID FROM ROOM_GROUP WHERE GroupID = '$gID';";
     $q2 = $db->query($check);
     $row2 = $q2->fetch();
-    $lID = $row2['LeaderID'];
+    $leader_ID = $row2['LeaderID'];
     
-    $s_id = "SELECT ID FROM STUDENT WHERE '$login' = Login; ";
+    $s_id = "SELECT ID FROM STUDENT WHERE '$login' = Login;";
     $q3 = $db->query($s_id);
     $row3 = $q3->fetch();
     $iD = $row3['ID'];
-    
-    $leader_name= "SELECT Fname, Lname FROM STUDENT WHERE '$iD' = ID ";
-    $q4 = $db->query($leader_name);
-    $row4 = $q4->fetch();
-    $f_name = $row4['Fname'];
-    $l_name = $row4['Lname'];
 
     if($q1 != false && $q2 != false && $q3 != false){
-        if($iD == $lID){
-          return 1;
+        if($iD == $leader_ID){
+          return 1;   
         }
         else{
-          print "<h3>The group leader is $f_name $l_name</h3></br>";
+          return -1;
         }
     }
     else{
       return false;
     }
+}
+
+function show_groupLeader($db, $login){
+    $group = "SELECT GroupID FROM STUDENT WHERE '$login' = Login";
+    $q1 = $db->query($group);
+    $row1 = $q1->fetch();
+    $gID = $row1['GroupID'];  
+    
+    $check = "SELECT LeaderID FROM ROOM_GROUP WHERE GroupID = '$gID';";
+    $q2 = $db->query($check);
+    $row2 = $q2->fetch();
+    $leader_ID = $row2['LeaderID'];
+        
+    $leader_name= "SELECT Fname, Lname FROM STUDENT WHERE '$leader_ID' = ID ";
+    $q3 = $db->query($leader_name);
+    $row3 = $q3->fetch();
+    $f_name = $row3['Fname'];
+    $l_name = $row3['Lname'];
+    
+    if($q1 != false && $q2 != false && $q3 != false){
+      print "<h3>The group leader is $f_name $l_name</h3></br>";
+    }
+    else{
+      return false;
+    }
+    
+    
 }
 
 //The leader may choose to add a new group member ($login is the leader and $studentID is the member being process)
