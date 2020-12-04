@@ -23,13 +23,17 @@ $op = $_GET['op'];
 $studentID = $_POST['id'];
 
 if($op == "add") {
+  
   $add = leader_add($db, $login, $studentID);
 }
 else if($op == "remove") {
-  $remove = leader_remove($db, $login, $studentID);
+  
+  foreach ($_POST['cbStudent'] as $id) {
+    
+    $remove = leader_remove($db, $login, $id);
+  }
 }
 ?>
-
 
 
 <div id="main" class="container-fluid">
@@ -45,11 +49,13 @@ else if($op == "remove") {
         print "<h2>You do not belong to a group</h2>";
       }
       else if($check == 1){
-        print "<h2>Your Group: </h2>";
         $checkLeader = checkleader($db, $login);
         if($checkLeader == 1){
-          print "<h3>You are the group leader </h3></br>";
+          print "<h3>You are the group leader</h3>";
         }
+        else{
+          show_groupLeader($db, $login);
+        }        
         $show = showGroup($db, $login);
         if($show == FALSE){
           print"<h3>SHOW GROUP ERROR</h3>";
@@ -57,29 +63,22 @@ else if($op == "remove") {
       }
       
 ?>  
-  <br>
-  <span style="float:left; color: black; font-size: 18px">
+    </div>
+  </div>
+  
+  <br/>
+    <span style="float:right; color: black; font-size: 18px">
       <form name="add" method="post" action="group.php?op=add">
-      <input type="text" name="id"placeholder="Student ID" /></br>
-      <INPUT type="submit" value="Add a new member" 
+      <input type="text" name="id"placeholder="ID" style= "border-radius: 12px; width: 70px;"/>
+      <INPUT type="submit" value="Add a Member" 
           <?php if($check != 1){
            echo ' disabled= disabled ';
           }
           ?>style= "border-radius: 12px;"/>  
     </form>
-    </span>
-    <span style="float:left; color: black; font-size: 18px">
-    <form name="remove" method="post" action="group.php?op=remove">
-      <input type="text" name="id"placeholder="Student ID" /></br>
-      <INPUT type="submit" value="Remove a member" 
-          <?php if($checkLeader != 1){
-           echo ' disabled= disabled ';
-          }
-          ?>style= "border-radius: 12px;"/>
-    </form>    
-    </span>
+    </span>    
     
-    <span style="float:right; color: black; font-size: 18px">
+    <span style="float:left; color: black; font-size: 18px">
     <form action='' method='get'>
     <input type = "submit" name = "create" value = "Create Group"
          <?php if($check==1){
@@ -105,10 +104,7 @@ else if($op == "remove") {
         $leave = leaveGroup($db, $login);
 
       }
-    ?>
-    
-    </div>
-  </div>
+    ?>  
 </div>
 
 <?php
