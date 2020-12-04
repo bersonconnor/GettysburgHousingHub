@@ -1,10 +1,14 @@
 <?php
+include_once("db_connect.php");
+//print_r($_POST);
 	/*
 	* Prints out the table of results when the user searches the housing database.
 	* The parameters the user searches by are extracted from $_POST.
 	*/
-	function search() {
-		// TODO: MAKE IT SO INCLUDING OF db_connect.php FUNCTIONS
+	function search($db) {
+		
+    /*
+    // TODO: MAKE IT SO INCLUDING OF db_connect.php FUNCTIONS
 		// RIGHT NOW IT ONLY FUNCTIONS IF IN CODE METHOD
                 $host="ada.cc.gettysburg.edu";
                 $dbase="f20_3";
@@ -20,13 +24,13 @@
                         die("Error connecting to mysql database " . $e->getMessage());
                 }
 
-
+    */
 		/* Write out the base query */
 		$q = "SELECT Name, Number, Size, FloorPlan FROM BUILDING JOIN ROOM ON Name=BuildingName";
 		$params = "";
 		$n = count($_POST);
 		$keys = array_keys($_POST);
-
+   
 		/* Append all none empty parameters */
 		for ($i = 0; $i < $n; ++$i) {
 	                $key = $keys[$i];
@@ -62,14 +66,18 @@
 		        $q .= " WHERE " . $params;
 		}
 		$q .= ";";
-		echo "$q";
+		//echo "$q";
+   
 		/* If the query is valid */
 		$res_q = $db->query($q);
-		if ($res_q == TRUE) {
+   
+		if ($res_q != False) {
+      
 			echo "<div style='padding: 15px;'>";
 			$i = 0;
 			/* Print every search result that matches the user input */
 			while ($row=$res_q->fetch()) {
+
 				/* Get all the values from the row and put into an array */
 				$building 	= $row['Name'];
 				$number 	= $row['Number'];
